@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{095C4DFD-33E6-43AC-AB73-8FCA46E00730}</ProjectGuid>
+    <ProjectGuid>{C357C030-4B00-4C74-8C3B-BF559A776304}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Ecommerce.Data</RootNamespace>
-    <AssemblyName>Ecommerce.Data</AssemblyName>
+    <RootNamespace>Repository</RootNamespace>
+    <AssemblyName>Repository</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -54,22 +54,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ApplicationDbContext.cs" />
-    <Compile Include="Migrations\201809230230218_Initialize.cs" />
-    <Compile Include="Migrations\201809230230218_Initialize.Designer.cs">
-      <DependentUpon>201809230230218_Initialize.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201809230242484_Categories.cs" />
-    <Compile Include="Migrations\201809230242484_Categories.Designer.cs">
-      <DependentUpon>201809230242484_Categories.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="GenericRepository.cs" />
+    <Compile Include="IGenericRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Domain\Domain.csproj">
-      <Project>{725d1895-5f43-4c1b-af24-f641f1d170de}</Project>
-      <Name>Domain</Name>
+    <ProjectReference Include="..\Data\Data.csproj">
+      <Project>{095c4dfd-33e6-43ac-ab73-8fca46e00730}</Project>
+      <Name>Data</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -77,13 +69,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201809230230218_Initialize.resx">
-      <DependentUpon>201809230230218_Initialize.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201809230242484_Categories.resx">
-      <DependentUpon>201809230242484_Categories.cs</DependentUpon>
-    </EmbeddedResource>
+    <Folder Include="Entities\" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

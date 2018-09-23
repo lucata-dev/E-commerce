@@ -78,16 +78,17 @@
     <Compile Include="Auth\ApplicationSignInManager.cs" />
     <Compile Include="Auth\ApplicationUserManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Data\Data.csproj">
-      <Project>{095c4dfd-33e6-43ac-ab73-8fca46e00730}</Project>
-      <Name>Data</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Domain\Domain.csproj">
       <Project>{725d1895-5f43-4c1b-af24-f641f1d170de}</Project>
       <Name>Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Repository\Repository.csproj">
+      <Project>{c357c030-4b00-4c74-8c3b-bf559a776304}</Project>
+      <Name>Repository</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

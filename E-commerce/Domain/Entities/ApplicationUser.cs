@@ -1,9 +1,10 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
-namespace Ecommerce.Domain
+namespace Ecommerce.Domain.Entities
 {
     public class ApplicationUser : IdentityUser
     {
@@ -14,5 +15,10 @@ namespace Ecommerce.Domain
             // Agregar aquí notificaciones personalizadas de usuario
             return userIdentity;
         }
+
+        public string Name { get; set; }
+        public string LastName { get; set; }
+        public string CompanyName { get; set; }
+        public DateTime CreatedAt { get; set; }
     }
 }

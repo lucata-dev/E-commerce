@@ -1,6 +1,6 @@
 ﻿using Ecommerce.Business.Auth;
 using Ecommerce.Data;
-using Ecommerce.Domain;
+using Ecommerce.Domain.Entities;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;

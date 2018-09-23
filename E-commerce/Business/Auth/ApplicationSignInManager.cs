@@ -1,4 +1,4 @@
-﻿using Ecommerce.Domain;
+﻿using Ecommerce.Domain.Entities;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
