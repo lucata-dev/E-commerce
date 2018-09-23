@@ -40,7 +40,7 @@ namespace Ecommerce.Business.Auth
             };
 
             // Configurar valores predeterminados para bloqueo de usuario
-            manager.UserLockoutEnabledByDefault = true;
+            manager.UserLockoutEnabledByDefault = false;
             manager.DefaultAccountLockoutTimeSpan = TimeSpan.FromMinutes(5);
             manager.MaxFailedAccessAttemptsBeforeLockout = 5;
 

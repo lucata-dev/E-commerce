@@ -82,6 +82,10 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Data\Data.csproj">
+      <Project>{095c4dfd-33e6-43ac-ab73-8fca46e00730}</Project>
+      <Name>Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Domain\Domain.csproj">
       <Project>{725d1895-5f43-4c1b-af24-f641f1d170de}</Project>
       <Name>Domain</Name>
