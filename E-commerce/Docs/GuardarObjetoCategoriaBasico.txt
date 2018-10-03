@@ -1,0 +1,10 @@
+Quiero crear un nuevo objeto categoria que sea persistente:
+
+_ Vamos al homeController creamos una instancia de tipo service (service esta en la capa de negocio y tiene un atributo de tipo genericRepository (es el responsable de hacer la transaccion con la base de datos) y ademas los metodos correspondientes para jugar con cualquier clase Categoria (esta definida en la capa Domain).
+
+_ Llamo a un metodo de la clase Service con el objeto creado (lo puedo crear ahi no es lo ideal)
+
+ Dentro ej: del metodo addCategory de la clase Service llamo a el metodo de add de la clase IgenericRepository definida en Repository. (ahi ya sabe laburar con la Base de Datos con los metodos del Entity Framework).
+
+
+
