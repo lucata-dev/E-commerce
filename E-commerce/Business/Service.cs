@@ -23,6 +23,16 @@ namespace Ecommerce.Business
             _repository.Add<Category>(category);
         }
 
+        public void DeleteCategory(Category cat1)
+        {
+            _repository.Remove<Category>(cat1);
+        }
+
+        public Category getInCategory(int id)
+        {
+            return _repository.Get<Category>(id);
+        } 
+
         public IEnumerable<Category> GetAllCategories()
         {
             return _repository.GetAll<Category>();
