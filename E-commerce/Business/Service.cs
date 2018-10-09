@@ -27,5 +27,10 @@ namespace Ecommerce.Business
         {
             return _repository.GetAll<Category>();
         }
+
+        public string GetCategorieId()
+        {
+            return _repository.FindBy<Category>(x => x.Name == "Ropa").FirstOrDefault().Id.ToString();
+        }
     }
 }

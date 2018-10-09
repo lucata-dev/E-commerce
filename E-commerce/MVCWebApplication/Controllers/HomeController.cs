@@ -12,6 +12,14 @@ namespace MVCWebApplication.Controllers
     {
         public ActionResult Index()
         {
+            var service = new Service();
+
+            //service.AddCategory(new Category { Name = "Pelotas" });
+
+            var category = service.GetCategorieId();
+
+            Response.Write(category);
+
             return View();
         }
 
