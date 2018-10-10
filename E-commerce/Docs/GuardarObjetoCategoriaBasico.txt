@@ -6,5 +6,13 @@ _ Llamo a un metodo de la clase Service con el objeto creado (lo puedo crear ahi
 
  Dentro ej: del metodo addCategory de la clase Service llamo a el metodo de add de la clase IgenericRepository definida en Repository. (ahi ya sabe laburar con la Base de Datos con los metodos del Entity Framework).
 
-
+ Category juguetes = new Category();
+            juguetes.Name = "Juguetes";       
+            
+            servicio.AddCategory(juguetes);
+            var lista=servicio.GetAllCategories();
+            foreach(var x in lista.ToList())
+            {
+                Response.Write(x.Id + x.Name);
+            }
 
