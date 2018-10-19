@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System;
+using System.ComponentModel.DataAnnotations;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
@@ -16,9 +17,21 @@ namespace Ecommerce.Domain.Entities
             return userIdentity;
         }
 
+        [Required]
+        [StringLength(50)]
+        [Display(Name = "Nombre")]
         public string Name { get; set; }
+
+        [Required]
+        [StringLength(50)]
+        [Display(Name = "Apellido")]
         public string LastName { get; set; }
+
+        [StringLength(50)]
+        [Display(Name = "Empressa")]
         public string CompanyName { get; set; }
+
+        [Display(Name = "Fecha de registro")]
         public DateTime CreatedAt { get; set; }
     }
 }

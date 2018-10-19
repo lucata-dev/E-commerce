@@ -18,6 +18,7 @@ namespace Ecommerce.Business
             _repository = new GenericRepository();
         }
 
+        #region Categories
         public void AddCategory(Category category)
         {
             _repository.Add<Category>(category);
@@ -42,5 +43,16 @@ namespace Ecommerce.Business
         {
             return _repository.FindBy<Category>(x => x.Name == "Ropa").FirstOrDefault().Id.ToString();
         }
+
+        #endregion
+
+        #region Users
+
+        public IEnumerable<ApplicationUser> Users()
+        {
+            return _repository.GetAll<ApplicationUser>();
+        }
+
+        #endregion
     }
 }

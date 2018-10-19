@@ -43,6 +43,9 @@
     <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.2\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -63,6 +66,10 @@
     <Compile Include="Migrations\201809230242484_Categories.Designer.cs">
       <DependentUpon>201809230242484_Categories.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201810151640598_CreateEntities.cs" />
+    <Compile Include="Migrations\201810151640598_CreateEntities.Designer.cs">
+      <DependentUpon>201810151640598_CreateEntities.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -82,6 +89,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201809230242484_Categories.resx">
       <DependentUpon>201809230242484_Categories.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810151640598_CreateEntities.resx">
+      <DependentUpon>201810151640598_CreateEntities.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />

@@ -8,6 +8,10 @@ namespace Ecommerce.Data
     {
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
         public DbSet<Category> Categories { get; set; }
+        public DbSet<Product> Products { get; set; }
+        public DbSet<State> States { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<Image> Images { get; set; }
 
         public ApplicationDbContext()
             : base("EcommerceConnection")
