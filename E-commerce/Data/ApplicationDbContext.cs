@@ -7,6 +7,8 @@ namespace Ecommerce.Data
     public class ApplicationDbContext : IdentityDbContext
     {
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
+        public DbSet<ApplicationRole> ApplicationRoles { get; set; }
+
         public DbSet<Category> Categories { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<State> States { get; set; }

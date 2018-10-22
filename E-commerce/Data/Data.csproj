@@ -58,17 +58,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationDbContext.cs" />
-    <Compile Include="Migrations\201809230230218_Initialize.cs" />
-    <Compile Include="Migrations\201809230230218_Initialize.Designer.cs">
-      <DependentUpon>201809230230218_Initialize.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201809230242484_Categories.cs" />
-    <Compile Include="Migrations\201809230242484_Categories.Designer.cs">
-      <DependentUpon>201809230242484_Categories.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201810151640598_CreateEntities.cs" />
-    <Compile Include="Migrations\201810151640598_CreateEntities.Designer.cs">
-      <DependentUpon>201810151640598_CreateEntities.cs</DependentUpon>
+    <Compile Include="Migrations\201810220238157_Init.cs" />
+    <Compile Include="Migrations\201810220238157_Init.Designer.cs">
+      <DependentUpon>201810220238157_Init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -84,16 +76,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201809230230218_Initialize.resx">
-      <DependentUpon>201809230230218_Initialize.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201809230242484_Categories.resx">
-      <DependentUpon>201809230242484_Categories.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201810151640598_CreateEntities.resx">
-      <DependentUpon>201810151640598_CreateEntities.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201810220238157_Init.resx">
+      <DependentUpon>201810220238157_Init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

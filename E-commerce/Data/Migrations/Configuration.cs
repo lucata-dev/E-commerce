@@ -1,33 +1,23 @@
 namespace Ecommerce.Data.Migrations
 {
-    using Microsoft.AspNet.Identity;
-    using Microsoft.AspNet.Identity.EntityFramework;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
+    using Ecommerce.Data;
+    using Ecommerce.Domain.Entities;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<Ecommerce.Data.ApplicationDbContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<ApplicationDbContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(Ecommerce.Data.ApplicationDbContext context)
+        protected override void Seed(ApplicationDbContext context)
         {
-            var RoleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
-
-            // Create Admin Role
-            string roleName = "Admin";
-            IdentityResult roleResult;
-
-            // Check to see if Role Exists, if not create it
-            if (!RoleManager.RoleExists(roleName))
-            {
-                roleResult = RoleManager.Create(new IdentityRole(roleName));
-            }
-
+            context.ApplicationRoles.AddOrUpdate(new ApplicationRole { Name = "Admin" });
+            context.ApplicationRoles.AddOrUpdate(new ApplicationRole { Name = "Customer" });
             //  This method will be called after migrating to the latest version.
 
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method 

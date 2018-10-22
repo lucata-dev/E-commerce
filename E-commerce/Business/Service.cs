@@ -1,4 +1,5 @@
 ﻿using Ecommerce.Domain.Entities;
+using Microsoft.AspNet.Identity;
 using Repository;
 using System;
 using System.Collections.Generic;
@@ -48,9 +49,13 @@ namespace Ecommerce.Business
 
         #region Users
 
-        public IEnumerable<ApplicationUser> Users()
+        public IEnumerable<ApplicationUser> GetAdminUsers()
         {
-            return _repository.GetAll<ApplicationUser>();
+            var adminRole = _repository.GetAll<ApplicationRole>().FirstOrDefault(x => x.Name == "Admin");
+            var users = _repository.GetAll<ApplicationUser>();
+            //var xz = _repository.GetAll<ApplicationUser>().Where(a => a.Roles.FirstOrDefault().RoleId == adminRole.Id);
+
+            return null;
         }
 
         #endregion

@@ -75,6 +75,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Auth\ApplicationRoleManager.cs" />
     <Compile Include="Auth\ApplicationSignInManager.cs" />
     <Compile Include="Auth\ApplicationUserManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
