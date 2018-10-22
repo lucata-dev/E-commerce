@@ -157,8 +157,8 @@ namespace MVCWebApplication.Areas.Admin
 
         public ActionResult List()
         {
-            var users = _service.Users();
-            return View(users);
+            var users = _service.GetAdminUsers();
+            return View();
         }
 
         public ActionResult Create()

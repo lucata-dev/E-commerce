@@ -2,12 +2,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Permissions;
 using System.Web;
 using System.Web.Mvc;
 
 namespace MVCWebApplication.Areas.Admin.Controllers
 {
-    [Authorize(Roles = "Admin")]
     public class HomeController : Controller
     {
         // GET: Admin/Home
