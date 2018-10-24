@@ -46,7 +46,7 @@ namespace Repository
             }
         }
 
-        public T Get<T>(int id) where T : class
+        public T Get<T>(string id) where T : class
         {
             return _dbContext.Set<T>().Find(id);
         }
@@ -64,6 +64,20 @@ namespace Repository
         public void Dispose()
         {
             _dbContext.Dispose();
+        }
+
+        public void Update<T>(T entity) where T : class
+        {
+            try
+            {
+                _dbContext.Set<T>().Attach(entity);
+                _dbContext.Entry(entity).State = EntityState.Modified;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
     }
 }

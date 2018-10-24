@@ -32,5 +32,8 @@ namespace Ecommerce.Domain.Entities
         [Required]
         [Display(Name = "Fecha de registro")]
         public DateTime CreatedAt { get; set; }
+
+        [Display(Name = "Habilitado")]
+        public bool IsAvailable { get; set; }
     }
 }

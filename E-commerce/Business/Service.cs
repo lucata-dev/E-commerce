@@ -32,7 +32,7 @@ namespace Ecommerce.Business
 
         public Category getInCategory(int id)
         {
-            return _repository.Get<Category>(id);
+            return _repository.Get<Category>(id.ToString());
         } 
 
         public IEnumerable<Category> GetAllCategories()
@@ -52,10 +52,13 @@ namespace Ecommerce.Business
         public IEnumerable<ApplicationUser> GetAdminUsers()
         {
             var adminRole = _repository.GetAll<ApplicationRole>().FirstOrDefault(x => x.Name == "Admin");
-            var users = _repository.GetAll<ApplicationUser>();
-            //var xz = _repository.GetAll<ApplicationUser>().Where(a => a.Roles.FirstOrDefault().RoleId == adminRole.Id);
+            var users = _repository.FindBy<ApplicationUser>(x => x.Roles.Any(r => r.RoleId == adminRole.Id));
+            return users;
+        }
 
-            return null;
+        public ApplicationUser GetUser(string id)
+        {
+            return _repository.Get<ApplicationUser>(id);
         }
 
         #endregion

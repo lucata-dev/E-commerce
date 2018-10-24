@@ -11,13 +11,20 @@ namespace Ecommerce.Data.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
         }
 
         protected override void Seed(ApplicationDbContext context)
         {
-            context.ApplicationRoles.AddOrUpdate(new ApplicationRole { Name = "Admin" });
-            context.ApplicationRoles.AddOrUpdate(new ApplicationRole { Name = "Customer" });
+            try
+            { 
+                context.ApplicationRoles.AddOrUpdate(new ApplicationRole { Name = "Admin" });
+                context.ApplicationRoles.AddOrUpdate(new ApplicationRole { Name = "Customer" });
+            }
+            catch(Exception)
+            {
+
+            }
             //  This method will be called after migrating to the latest version.
 
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
