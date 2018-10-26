@@ -21,7 +21,19 @@ namespace BackOffice.Controllers
         public ActionResult Index()
         {
             var users = _service.GetAdminUsers();
-            return View();
+            return View(users);
+        }
+
+        public ActionResult Create()
+        {
+            return RedirectToAction("Register", "Account");
+        }
+
+        public ActionResult Edit(string id)
+        {
+            var user = _service.GetUser(id);
+
+            return View(user);
         }
     }
 }

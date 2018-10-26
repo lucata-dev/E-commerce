@@ -11,8 +11,9 @@ namespace Repository
     {
         void Add<T>(T entity) where T : class;
         void Remove<T>(T entity) where T : class;
+        void Update<T>(T entity) where T : class;
 
-        T Get<T>(int id) where T : class;
+        T Get<T>(string id) where T : class;
 
         IEnumerable<T> GetAll<T>() where T : class;
         IEnumerable<T> FindBy<T>(Expression<Func<T, bool>> predicate) where T : class;
