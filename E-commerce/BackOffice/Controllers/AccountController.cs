@@ -184,9 +184,25 @@ namespace BackOffice.Controllers
             return View(model);
         }
 
-        public ActionResult Edit(UserViewModel user)
+        public async Task<ActionResult> Edit(string id)
         {
-            return View(user);
+            var user = await UserManager.FindByIdAsync(id);
+
+            if (user != null)
+            {
+                var userModel = new UserViewModel
+                {
+                    Email = user.Email,
+                    Enabled = user.IsAvailable,
+                    Id = user.Id
+                };
+                return View(userModel);
+            }
+            else
+            {
+                return View();
+            }
+            
         }
 
 

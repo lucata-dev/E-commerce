@@ -31,18 +31,11 @@ namespace BackOffice.Controllers
             return RedirectToAction("Register", "Account");
         }
 
-        //public ActionResult Edit(string id)
-        //{
-        //    var user = _service.GetUser(Conventid);
+        public ActionResult Edit(string id)
+        {
+            //var user = _service.GetUser(Conventid);s
 
-        //    var userViewModel = new UserViewModel
-        //    {
-        //        Id = user.Id,
-        //        Email = user.Email,
-        //        Enabled = user.IsAvailable
-        //    };
-
-        //    return RedirectToAction("Edit", "Account", userViewModel);
-        //}
+            return RedirectToAction("Edit", "Account", new { id = id });
+        }
     }
 }
