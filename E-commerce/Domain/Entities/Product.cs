@@ -14,6 +14,7 @@ namespace Ecommerce.Domain.Entities
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
+        [Required]
         [StringLength(50)]
         public string Name { get; set; }
 
@@ -25,6 +26,7 @@ namespace Ecommerce.Domain.Entities
         public decimal UnitPrice { get; set; }
 
         [Required]
+        [DataType(DataType.MultilineText)]
         public Category Category { get; set; }
 
         public virtual ICollection<Image> Images { get; set; }

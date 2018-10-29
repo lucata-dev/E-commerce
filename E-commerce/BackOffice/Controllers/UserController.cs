@@ -1,4 +1,6 @@
-﻿using Ecommerce.Business;
+﻿using BackOffice.Models;
+using Ecommerce.Business;
+using Ecommerce.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,11 +31,18 @@ namespace BackOffice.Controllers
             return RedirectToAction("Register", "Account");
         }
 
-        public ActionResult Edit(string id)
-        {
-            var user = _service.GetUser(id);
+        //public ActionResult Edit(string id)
+        //{
+        //    var user = _service.GetUser(Conventid);
 
-            return View(user);
-        }
+        //    var userViewModel = new UserViewModel
+        //    {
+        //        Id = user.Id,
+        //        Email = user.Email,
+        //        Enabled = user.IsAvailable
+        //    };
+
+        //    return RedirectToAction("Edit", "Account", userViewModel);
+        //}
     }
 }

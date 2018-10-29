@@ -29,7 +29,6 @@ namespace Ecommerce.Domain.Entities
         [Display(Name = "Empresa")]
         public string CompanyName { get; set; }
 
-        [Required]
         [Display(Name = "Fecha de registro")]
         public DateTime CreatedAt { get; set; }
 

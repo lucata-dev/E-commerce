@@ -18,8 +18,8 @@ namespace Ecommerce.Data.Migrations
         {
             try
             { 
-                context.ApplicationRoles.AddOrUpdate(new ApplicationRole { Name = "Admin" });
-                context.ApplicationRoles.AddOrUpdate(new ApplicationRole { Name = "Customer" });
+                //context.ApplicationRoles.AddOrUpdate(new ApplicationRole { Name = "Admin" });
+                //context.ApplicationRoles.AddOrUpdate(new ApplicationRole { Name = "Customer" });
             }
             catch(Exception)
             {

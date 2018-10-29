@@ -36,17 +36,18 @@ namespace Repository
         {
             try
             {
+                _dbContext.Set<T>().Attach(entity);
                 _dbContext.Set<T>().Remove(entity);
                 _dbContext.SaveChanges();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
                 throw;
             }
         }
 
-        public T Get<T>(string id) where T : class
+        public T Get<T>(int id) where T : class
         {
             return _dbContext.Set<T>().Find(id);
         }
@@ -72,6 +73,8 @@ namespace Repository
             {
                 _dbContext.Set<T>().Attach(entity);
                 _dbContext.Entry(entity).State = EntityState.Modified;
+
+                _dbContext.SaveChanges();
             }
             catch (Exception)
             {

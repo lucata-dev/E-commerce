@@ -23,9 +23,11 @@
             @if (User.Identity.IsAuthenticated)
             {   
                 <div class="navbar-collapse collapse">
-                   <ul class="nav navbar-nav">
-                       <li>@Html.ActionLink("Administradores", "Index", "User")</li>
-                   </ul>
+                    <ul class="nav navbar-nav">
+                        <li>@Html.ActionLink("Administradores", "Index", "User")</li>
+                        <li>@Html.ActionLink("Categorias", "Index", "Category")</li>
+                        <li>@Html.ActionLink("Productos", "Index", "Product")</li>
+                    </ul>
                    @Html.Partial("_LoginPartial")
                 </div>
             }

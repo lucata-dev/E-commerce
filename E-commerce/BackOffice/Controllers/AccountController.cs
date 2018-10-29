@@ -162,6 +162,7 @@ namespace BackOffice.Controllers
                 };
 
                 var result = await UserManager.CreateAsync(user, model.Password);
+
                 if (result.Succeeded)
                 {
                     var x = UserManager.AddToRole(user.Id, "Admin");
@@ -175,6 +176,38 @@ namespace BackOffice.Controllers
                     // await UserManager.SendEmailAsync(user.Id, "Confirmar cuenta", "Para confirmar la cuenta, haga clic <a href=\"" + callbackUrl + "\">aquí</a>");
 
                     return RedirectToAction("Index", "Home");
+                }
+                AddErrors(result);
+            }
+
+            // Si llegamos a este punto, es que se ha producido un error y volvemos a mostrar el formulario
+            return View(model);
+        }
+
+        public ActionResult Edit(UserViewModel user)
+        {
+            return View(user);
+        }
+
+
+        // POST: /Account/Update
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Update(UserViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await UserManager.FindByIdAsync(model.Id);
+
+                user.Email = model.Email;
+                user.IsAvailable = model.Enabled;
+
+                var result = await UserManager.UpdateAsync(user);
+
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("Index", "User");
                 }
                 AddErrors(result);
             }

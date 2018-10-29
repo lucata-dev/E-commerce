@@ -20,29 +20,30 @@ namespace Ecommerce.Business
         }
 
         #region Categories
+
         public void AddCategory(Category category)
         {
             _repository.Add<Category>(category);
         }
 
-        public void DeleteCategory(Category cat1)
+        public void DeleteCategory(Category category)
         {
-            _repository.Remove<Category>(cat1);
+            _repository.Remove<Category>(category);
         }
 
-        public Category getInCategory(int id)
+        public void UpdateCategory(Category category)
         {
-            return _repository.Get<Category>(id.ToString());
+            _repository.Update<Category>(category);
+        }
+
+        public Category GetCategoryById(int id)
+        {
+            return _repository.Get<Category>(id);
         } 
 
         public IEnumerable<Category> GetAllCategories()
         {
             return _repository.GetAll<Category>();
-        }
-
-        public string GetCategorieId()
-        {
-            return _repository.FindBy<Category>(x => x.Name == "Ropa").FirstOrDefault().Id.ToString();
         }
 
         #endregion
@@ -56,9 +57,38 @@ namespace Ecommerce.Business
             return users;
         }
 
-        public ApplicationUser GetUser(string id)
+        public void UpdateUser(ApplicationUser user)
         {
-            return _repository.Get<ApplicationUser>(id);
+            _repository.Update<ApplicationUser>(user);
+        }
+
+        #endregion
+
+        #region Products
+
+        public IEnumerable<Product> GetAllProducts()
+        {
+            return _repository.GetAll<Product>();
+        }
+
+        public void AddProduct(Product product)
+        {
+            _repository.Add<Product>(product);
+        }
+
+        public void DeleteProduct(Product product)
+        {
+            _repository.Remove<Product>(product);
+        }
+
+        public void UpdateCategory(Product product)
+        {
+            _repository.Update<Product>(product);
+        }
+
+        public Product GetProductById(int id)
+        {
+            return _repository.Get<Product>(id);
         }
 
         #endregion
