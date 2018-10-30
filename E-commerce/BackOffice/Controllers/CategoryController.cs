@@ -31,13 +31,13 @@ namespace Ecommerce.BackOffice.Controllers
             return View();
         }
 
-        // GET: Category/Create
+        // GET: Category/Create      Llamado al servidor/ver formulario
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Category/Create
+        // POST: Category/Create   Mandas informacion/llenar formulario
         [HttpPost]
         public ActionResult Create(Category category)
         {

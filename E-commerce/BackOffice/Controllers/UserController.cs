@@ -31,18 +31,80 @@ namespace BackOffice.Controllers
             return RedirectToAction("Register", "Account");
         }
 
-        //public ActionResult Edit(string id)
-        //{
-        //    var user = _service.GetUser(Conventid);
+        public ActionResult Create(ApplicationUser user)
+        {
+            try
+            {
+                _service.UpdateUser(user);
 
-        //    var userViewModel = new UserViewModel
-        //    {
-        //        Id = user.Id,
-        //        Email = user.Email,
-        //        Enabled = user.IsAvailable
-        //    };
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View();
+            }
+        }
 
-        //    return RedirectToAction("Edit", "Account", userViewModel);
-        //}
-    }
+        public ActionResult Edit(int id)
+        {
+            var user = _service.GetApplicationUserById(id);
+
+            return View(user);
+        }
+
+        public ActionResult Edit(ApplicationUser user)
+        {
+            try
+            {
+                _service.UpdateUser(user);
+
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+        public ActionResult Delete(int id)
+        {
+            var user = _service.GetApplicationUserById(id);
+
+            return View(user);
+        }
+
+        public ActionResult Delete(ApplicationUser user)
+        {
+            try
+            {
+                _service.DeleteUser(user);
+
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View();
+            }
+
+
+
+
+
+
+
+
+            //public ActionResult Edit(string id)
+            //{
+            //    var user = _service.GetUser(Conventid);
+
+            //    var userViewModel = new UserViewModel
+            //    {
+            //        Id = user.Id,
+            //        Email = user.Email,
+            //        Enabled = user.IsAvailable
+            //    };
+
+            //    return RedirectToAction("Edit", "Account", userViewModel);
+            //}
+        }
 }

@@ -46,6 +46,8 @@ namespace Ecommerce.Business
             return _repository.GetAll<Category>();
         }
 
+       
+
         #endregion
 
         #region Users
@@ -62,6 +64,20 @@ namespace Ecommerce.Business
             _repository.Update<ApplicationUser>(user);
         }
 
+        public void AddUser(ApplicationUser user)
+        {
+            _repository.Add<ApplicationUser>(user);
+        }
+
+        public void DeleteUser(ApplicationUser user)
+        {
+            _repository.Remove<ApplicationUser>(user);
+        }
+
+        public ApplicationUser GetApplicationUserById(int id)
+        {
+            return _repository.Get<ApplicationUser>(id);
+        }
         #endregion
 
         #region Products
