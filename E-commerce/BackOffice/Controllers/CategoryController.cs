@@ -8,15 +8,8 @@ using System.Web.Mvc;
 
 namespace Ecommerce.BackOffice.Controllers
 {
-    public class CategoryController : Controller
+    public class CategoryController : GeneralController
     {
-        private readonly Service _service;
-
-        public CategoryController()
-        {
-            _service = new Service();
-        }
-
         // GET: Category
         public ActionResult Index()
         {

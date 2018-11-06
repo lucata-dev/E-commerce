@@ -31,80 +31,11 @@ namespace BackOffice.Controllers
             return RedirectToAction("Register", "Account");
         }
 
-        public ActionResult Create(ApplicationUser user)
+        public ActionResult Edit(string id)
         {
-            try
-            {
-                _service.UpdateUser(user);
+            //var user = _service.GetUser(Conventid);s
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            return RedirectToAction("Edit", "Account", new { id = id });
         }
-
-        public ActionResult Edit(int id)
-        {
-            var user = _service.GetApplicationUserById(id);
-
-            return View(user);
-        }
-
-        public ActionResult Edit(ApplicationUser user)
-        {
-            try
-            {
-                _service.UpdateUser(user);
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        public ActionResult Delete(int id)
-        {
-            var user = _service.GetApplicationUserById(id);
-
-            return View(user);
-        }
-
-        public ActionResult Delete(ApplicationUser user)
-        {
-            try
-            {
-                _service.DeleteUser(user);
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-
-
-
-
-
-
-
-
-            //public ActionResult Edit(string id)
-            //{
-            //    var user = _service.GetUser(Conventid);
-
-            //    var userViewModel = new UserViewModel
-            //    {
-            //        Id = user.Id,
-            //        Email = user.Email,
-            //        Enabled = user.IsAvailable
-            //    };
-
-            //    return RedirectToAction("Edit", "Account", userViewModel);
-            //}
-        }
+    }
 }
