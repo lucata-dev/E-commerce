@@ -11,7 +11,7 @@ namespace Repository
 {
     public class GenericRepository : IGenericRepository
     {
-        private DbContext _dbContext;
+        protected DbContext _dbContext;
 
         public GenericRepository()
         {

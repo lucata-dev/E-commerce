@@ -10,12 +10,15 @@ namespace MVCWebApplication.Controllers
 {
     public class HomeController : Controller
     {
-        Service servicio = new Service();
+        Service _service = new Service();
 
 
         public ActionResult Index()
         {
-            return View();
+            ViewBag.Categories = _service.GetAllCategories();
+            var productos = _service.GetAllProducts().Take(10);
+
+            return View(productos);
         }
 
         public ActionResult About()

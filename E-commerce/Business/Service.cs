@@ -1,6 +1,7 @@
 ﻿using Ecommerce.Domain.Entities;
 using Microsoft.AspNet.Identity;
 using Repository;
+using Repository.Entities;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -89,6 +90,13 @@ namespace Ecommerce.Business
         public Product GetProductById(int id)
         {
             return _repository.Get<Product>(id);
+        }
+
+        public IEnumerable<Product> GetProductsByCategory(int id)
+        {
+            var products = new ProductRepository().GetProductByCategory(id);
+
+            return products;
         }
 
         #endregion
