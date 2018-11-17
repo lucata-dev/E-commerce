@@ -16,7 +16,7 @@ namespace MVCWebApplication.Controllers
         public ActionResult Index()
         {
             ViewBag.Categories = _service.GetAllCategories();
-            var productos = _service.GetAllProducts().Take(10);
+           var productos = _service.GetAllProducts().Take(10);
 
             return View(productos);
         }

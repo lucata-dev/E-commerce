@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -16,20 +17,23 @@ namespace Ecommerce.Domain.Entities
 
         [Required]
         [StringLength(50)]
+        [Display(Name = "Nombre")]
         public string Name { get; set; }
 
         [Required]
         [StringLength(200)]
+        [Display(Name = "Descripción")]
         public string Description { get; set; }
 
         [Required]
+        [Display(Name = "Precio")]
         public decimal UnitPrice { get; set; }
 
         [Required]
         [DataType(DataType.MultilineText)]
-        public Category Category { get; set; }
+        public virtual Category Category { get; set; }
 
-        public virtual ICollection<Image> Images { get; set; }
-        public virtual ICollection<Order> Orders { get; set; }
+        public ICollection<Image> Images { get; set; }
+        public ICollection<Order> Orders { get; set; }
     }
 }

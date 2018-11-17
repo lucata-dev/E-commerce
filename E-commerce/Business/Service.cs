@@ -98,7 +98,7 @@ namespace Ecommerce.Business
             _repository.Remove<Product>(product);
         }
 
-        public void UpdateCategory(Product product)
+        public void UpdateProduct(Product product)
         {
             _repository.Update<Product>(product);
         }
@@ -113,6 +113,15 @@ namespace Ecommerce.Business
             var products = new ProductRepository().GetProductByCategory(id);
 
             return products;
+        }
+
+        #endregion
+
+        #region Gallery
+
+        public void AddImage(Image image)
+        {
+            _repository.Add<Image>(image);
         }
 
         #endregion

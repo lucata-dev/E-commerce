@@ -1,6 +1,8 @@
 ﻿using Ecommerce.Domain.Entities;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -20,7 +22,8 @@ namespace Ecommerce.BackOffice.Controllers
         // GET: Product/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            var product = _service.GetProductById(id);
+            return View(product);
         }
 
         // GET: Product/Create
@@ -33,34 +36,60 @@ namespace Ecommerce.BackOffice.Controllers
 
         // POST: Product/Create
         [HttpPost]
-        public ActionResult Create(Product product, int categoryId)
+        public ActionResult Create(Product product, int category, HttpPostedFileBase postedFile)
         {
             try
             {
-                product.Category = _service.GetCategoryById(categoryId);
+                //, int categoryId, HttpPostedFileBase postedFile
+                var repositoryPath = ConfigurationManager.AppSettings["RepositoryPath"];
+
+                product.Category = _service.GetCategoryById(category);
+
+                var fullPath = Path.Combine(repositoryPath, product.Id.ToString());
+
+                if (!Directory.Exists(fullPath))
+                {
+                    Directory.CreateDirectory(fullPath);
+                }
+
+                if (postedFile != null)
+                {
+                    string fileName = Path.GetFileName(postedFile.FileName);
+                    postedFile.SaveAs(Path.Combine(fullPath, fileName));
+
+                    var image = new Image { Path = fullPath };
+
+                    _service.AddImage(image);
+
+                    product.Images.Add(image);
+
+                    _service.AddProduct(product);
+                }
+
                 _service.AddProduct(product);
 
                 return RedirectToAction("Index");
             }
-            catch
+            catch(Exception ex)
             {
-                return View();
+                return View(ex.Message);
             }
         }
 
         // GET: Product/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            var product = _service.GetProductById(id);
+            return View(product);
         }
 
         // POST: Product/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(int id, Product product)
         {
             try
             {
-                // TODO: Add update logic here
+                _service.UpdateProduct(product);
 
                 return RedirectToAction("Index");
             }
@@ -73,20 +102,22 @@ namespace Ecommerce.BackOffice.Controllers
         // GET: Product/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            var product = _service.GetProductById(id);
+            return View(product);
         }
 
         // POST: Product/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(Product product)
         {
             try
             {
-                // TODO: Add delete logic here
+                var productDelete = _service.GetProductById(product.Id);
+                _service.DeleteProduct(productDelete);
 
                 return RedirectToAction("Index");
             }
-            catch
+            catch(Exception ex)
             {
                 return View();
             }

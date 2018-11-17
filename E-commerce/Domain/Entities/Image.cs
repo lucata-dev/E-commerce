@@ -17,6 +17,8 @@ namespace Ecommerce.Domain.Entities
         [StringLength(100)]
         public string Path { get; set; }
 
-        public virtual ICollection<Product> Products { get; set; }
+        public int ProductId { get; set; }
+
+        public Product Product { get; set; }
     }
 }
