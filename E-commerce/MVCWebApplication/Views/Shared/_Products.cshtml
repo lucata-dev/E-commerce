@@ -1,0 +1,27 @@
+﻿@using System.Configuration;
+@{
+    @model IEnumerable<Ecommerce.Domain.Entities.Product>
+
+    var repo = ConfigurationManager.AppSettings["RepositoryPath"];
+}
+<div class="col-sm-9 padding-right">
+    <div class="features_items">
+        <!--features_items-->
+        <h2 class="title text-center">Productos destacados</h2>
+        @foreach (var item in Model)
+        {
+            <div class="col-sm-4">
+                <div class="product-image-wrapper">
+                    <div class="single-products">
+                        <div class="productinfo text-center">
+                            <img src="@Url.Content(repo + item.Images.FirstOrDefault().Path)" alt="" />
+                            <h2>$@item.UnitPrice</h2>
+                            <p>@item.Name</p>
+                            <a href="@Url.Action("Details", "Product", new { @id = item.Id })" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Detalle</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div><!--features_items-->
+</div>

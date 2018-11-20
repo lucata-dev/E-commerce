@@ -1,4 +1,7 @@
 ﻿using Ecommerce.Business;
+using Ecommerce.Domain.Entities;
+using Ecommerce.MVCWebApplication.Models;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,25 +12,25 @@ namespace Ecommerce.MVCWebApplication.Controllers
 {
     public class ProductController : Controller
     {
-        public readonly Service _servicio;
+        public readonly Service _service;
 
         public ProductController()
         {
-            _servicio = new Service();
+            _service = new Service();
+
+            ViewBag.Categories = _service.GetAllCategories();
         }
         // GET: Product
         public ActionResult Index(int id)
         {
-            ViewBag.Categories = _servicio.GetAllCategories();
-
-            var productos = _servicio.GetProductsByCategory(id);
+            var productos = _service.GetProductsByCategory(id);
             return View(productos);
         }
 
         // GET: Product/Details/5
         public ActionResult Details(int id)
         {
-            return View(_servicio.GetProductById(id));
+            return View(_service.GetProductById(id));
         }
 
         // GET: Product/Create
@@ -93,6 +96,72 @@ namespace Ecommerce.MVCWebApplication.Controllers
             catch
             {
                 return View();
+            }
+        }
+
+        [HttpPost]
+        public ActionResult AddToCart(int idProduct, int quantity)
+        {
+            var product = _service.GetProductById(idProduct);
+
+            if (product != null)
+            {
+                var cartItems = GetItemsCart();
+
+                cartItems.Add(new CartItemViewModel
+                {
+                    Product = product,
+                    Quantity = quantity,
+                    Total = quantity * Convert.ToInt32(product.UnitPrice)
+                });
+
+                var jsonCartItems = JsonConvert.SerializeObject(cartItems, Formatting.None,
+                    new JsonSerializerSettings
+                    {
+                        ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                    });
+
+                HttpCookie cartItemCookie = new HttpCookie("cartItemsCookie", jsonCartItems);
+
+                Response.Cookies.Add(cartItemCookie);
+
+                return RedirectToAction("Cart");
+            }
+            else
+            {
+                return View();
+            }
+        }
+
+        public ActionResult Cart()
+        {
+            var products = GetItemsCart();
+
+            if (products.Count > 0)
+            {
+                return View(products);
+            }
+            else
+            {
+                return View();
+            }
+        }
+
+        private List<CartItemViewModel> GetItemsCart()
+        {
+            if (Request.Cookies["cartItemsCookie"] != null)
+            {
+                var itemsCart = new List<CartItemViewModel>();
+
+                var json = Request.Cookies["cartItemsCookie"].Value;
+
+                var products = JsonConvert.DeserializeObject<List<CartItemViewModel>>(json);
+
+                return products;
+            }
+            else
+            {
+                return new List<CartItemViewModel>();
             }
         }
     }

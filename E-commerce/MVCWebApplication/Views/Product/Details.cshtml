@@ -1,74 +1,78 @@
-﻿
+﻿@using System.Configuration;
+@using Ecommerce.Domain.Entities;
 @{
     ViewBag.Title = "Details";
     @model Ecommerce.Domain.Entities.Product
+
+    var repo = ConfigurationManager.AppSettings["RepositoryPath"];
 }
 
-<div class="col-sm-9 padding-right">
-    <div class="product-details">
-        <!--product-details-->
-        <div class="col-sm-5">
-            <div class="view-product">
-                <img src="images/product-details/1.jpg" alt="" />
-                <h3>ZOOM</h3>
-            </div>
-            <div id="similar-product" class="carousel slide" data-ride="carousel">
-
-                <!-- Wrapper for slides -->
-                <div class="carousel-inner">
-                    <div class="item active">
-                        <a href=""><img src="images/product-details/similar1.jpg" alt=""></a>
-                        <a href=""><img src="images/product-details/similar2.jpg" alt=""></a>
-                        <a href=""><img src="images/product-details/similar3.jpg" alt=""></a>
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="left-sidebar">
+                    <h2>Categorias</h2>
+                    <div class="panel-group category-products" id="accordian">
+                        @if (ViewBag.Categrories != null)
+                        {
+                            <h4>No hay categorias</h4>
+                        }
+                        else
+                        {
+                            foreach (Category item in ViewBag.Categories)
+                            {
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" data-parent="#accordian"
+                                               href="@Url.Action("Index", "Product", new { @id = item.Id })">
+                                                <span class="badge pull-right"><i class="fa fa-plus"></i></span>
+                                                @item.Name
+                                            </a>
+                                        </h4>
+                                    </div>
+                                </div>
+                            }
+                        }
                     </div>
-                    <div class="item">
-                        <a href=""><img src="images/product-details/similar1.jpg" alt=""></a>
-                        <a href=""><img src="images/product-details/similar2.jpg" alt=""></a>
-                        <a href=""><img src="images/product-details/similar3.jpg" alt=""></a>
-                    </div>
-                    <div class="item">
-                        <a href=""><img src="images/product-details/similar1.jpg" alt=""></a>
-                        <a href=""><img src="images/product-details/similar2.jpg" alt=""></a>
-                        <a href=""><img src="images/product-details/similar3.jpg" alt=""></a>
-                    </div>
-
                 </div>
-
-                <!-- Controls -->
-                <a class="left item-control" href="#similar-product" data-slide="prev">
-                    <i class="fa fa-angle-left"></i>
-                </a>
-                <a class="right item-control" href="#similar-product" data-slide="next">
-                    <i class="fa fa-angle-right"></i>
-                </a>
             </div>
 
+            <div class="col-sm-9 padding-right">
+                <div class="product-details">
+                    <!--product-details-->
+                    <div class="col-sm-5">
+                        <div class="view-product">
+                            <img src="@Url.Content(repo + Model.Images.FirstOrDefault().Path)" alt="" />
+                        </div>
+                    </div>
+                    <div class="col-sm-7">
+                        <div class="product-information">
+                            <!--/product-information-->
+                            @using (Html.BeginForm("AddToCart", "Product", new { @idProduct = Model.Id }, FormMethod.Post))
+                            {
+                                <img src="images/product-details/new.jpg" class="newarrival" alt="" />
+                                <h2>@Model.Name</h2>
+                                <img src="@Url.Content("~/Content/img/product-details/rating.png")" alt="" />
+                                <span>
+                                    <span>$ @Model.UnitPrice</span>
+                                    <label>Cantidad:</label>
+                                    <input name="quantity" type="text" value="1" />
+                                    <button type="submit" class="btn btn-fefault cart">
+                                        <i class="fa fa-shopping-cart"></i>
+                                        Comprar
+                                    </button>
+                                </span>
+                                <p><b>Disponibilidad:</b> En Stock</p>
+                                <p>
+                                    @Model.Description
+                                </p>
+                            }
+                        </div><!--/product-information-->
+                    </div>
+                </div><!--/product-details-->
+            </div>
         </div>
-        <div class="col-sm-7">
-            <div class="product-information">
-                <!--/product-information-->
-                <img src="images/product-details/new.jpg" class="newarrival" alt="" />
-                <h2>@Model.Name</h2>
-                <p>Web ID: 1089772</p>
-                <img src="images/product-details/rating.png" alt="" />
-                <span>
-                    <span>$ @Model.UnitPrice</span>
-                    <label>Quantity:</label>
-                    <input type="text" value="3" />
-                    <button type="button" class="btn btn-fefault cart">
-                        <i class="fa fa-shopping-cart"></i>
-                        Add to cart
-                    </button>
-                </span>
-                <p><b>Availability:</b> In Stock</p>
-                <p><b>Condition:</b> New</p>
-                <p><b>Brand:</b> E-SHOPPER</p>
-                <a href=""><img src="images/product-details/share.png" class="share img-responsive" alt="" /></a>
-                <p>
-                    @Model.Description
-                </p>
-            </div><!--/product-information-->
-        </div>
-    </div><!--/product-details-->
-
-</div>
+    </div>
+</section>

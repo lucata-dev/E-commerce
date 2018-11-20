@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
@@ -30,10 +31,23 @@ namespace Ecommerce.Domain.Entities
         public decimal UnitPrice { get; set; }
 
         [Required]
+        [JsonIgnore]
         [DataType(DataType.MultilineText)]
         public virtual Category Category { get; set; }
 
-        public ICollection<Image> Images { get; set; }
-        public ICollection<Order> Orders { get; set; }
+        public virtual ICollection<Image> Images
+        {
+            get
+            {
+                return _images ?? (_images = new Collection<Image>());
+            }
+            set
+            {
+                _images = value;
+            }
+        }
+        public virtual ICollection<Order> Orders { get; set; }
+
+        private ICollection<Image> _images;
     }
 }

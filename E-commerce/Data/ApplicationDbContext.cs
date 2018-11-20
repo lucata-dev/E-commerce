@@ -18,6 +18,7 @@ namespace Ecommerce.Data
         public ApplicationDbContext()
             : base("EcommerceConnection")
         {
+            //this.Configuration.ProxyCreationEnabled = false;
         }
 
         public static ApplicationDbContext Create()

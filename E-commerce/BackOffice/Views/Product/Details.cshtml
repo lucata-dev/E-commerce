@@ -1,7 +1,8 @@
 ﻿@model Ecommerce.Domain.Entities.Product
-
+@using System.Configuration;
 @{
     ViewBag.Title = "Details";
+    var repo = Server.MapPath("~/Images");
 }
 
 <h2>Details</h2>
@@ -33,7 +34,9 @@
         <dd>
             @Html.DisplayFor(model => model.UnitPrice)
         </dd>
-
+        <dd>
+            <img src="@Url.Content("~/Images/" + Model.Images.FirstOrDefault().Path)" width="300" />
+        </dd>
     </dl>
 </div>
 <p>

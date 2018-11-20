@@ -18,7 +18,17 @@ namespace Ecommerce.Data.Migrations
         protected override void Seed(ApplicationDbContext context)
         {
             try
-            { 
+            {
+                context.Categories.AddOrUpdate(new Category[]
+                {
+                    new Category{ Id = 1, Name = "Ropa masculina"},
+                    new Category{ Id = 2, Name = "Ropa femenina" },
+                    new Category{ Id = 3, Name = "Jugutes" },
+                    new Category{ Id = 4, Name = "Videojuegos" },
+                    new Category{ Id = 5, Name = "Deportes" }
+                });
+
+                
                 //context.ApplicationRoles.AddOrUpdate(new ApplicationRole { Name = "Admin" });
                 //context.ApplicationRoles.AddOrUpdate(new ApplicationRole { Name = "Customer" });
             }

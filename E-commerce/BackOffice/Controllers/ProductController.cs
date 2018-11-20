@@ -40,33 +40,31 @@ namespace Ecommerce.BackOffice.Controllers
         {
             try
             {
-                //, int categoryId, HttpPostedFileBase postedFile
-                var repositoryPath = ConfigurationManager.AppSettings["RepositoryPath"];
-
                 product.Category = _service.GetCategoryById(category);
 
-                var fullPath = Path.Combine(repositoryPath, product.Id.ToString());
+                _service.AddProduct(product);
 
-                if (!Directory.Exists(fullPath))
+                var repositoryPath = Server.MapPath("~/Images");
+
+                var directoryPath = product.Id.ToString();
+
+                var fullDirectory = Path.Combine(repositoryPath, directoryPath);
+
+                if (!Directory.Exists(fullDirectory))
                 {
-                    Directory.CreateDirectory(fullPath);
+                    Directory.CreateDirectory(fullDirectory);
                 }
 
                 if (postedFile != null)
                 {
                     string fileName = Path.GetFileName(postedFile.FileName);
-                    postedFile.SaveAs(Path.Combine(fullPath, fileName));
 
-                    var image = new Image { Path = fullPath };
+                    postedFile.SaveAs(Path.Combine(fullDirectory, fileName));
+
+                    var image = new Image { Path = Path.Combine(directoryPath, fileName), ProductId = product.Id };
 
                     _service.AddImage(image);
-
-                    product.Images.Add(image);
-
-                    _service.AddProduct(product);
                 }
-
-                _service.AddProduct(product);
 
                 return RedirectToAction("Index");
             }
