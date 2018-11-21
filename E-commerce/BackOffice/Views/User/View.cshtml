@@ -1,13 +1,12 @@
-﻿@model BackOffice.Models.UserViewModel
+﻿@model Ecommerce.Domain.Entities.ApplicationUser
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "View";
 }
 
-<h2>Edit</h2>
+<h2>View</h2>
 
-
-@using (Html.BeginForm("Update", "Account"))
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
     
@@ -16,7 +15,6 @@
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
-            @Html.HiddenFor(model => model.Id)
             @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
@@ -24,30 +22,24 @@
             </div>
         </div>
 
-        
-
         <div class="form-group">
-            @Html.LabelFor(model => model.Enabled, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.IsAvailable, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <div class="checkbox">
-                    @Html.EditorFor(model => model.Enabled)
-                    @Html.ValidationMessageFor(model => model.Enabled, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.IsAvailable)
+                    @Html.ValidationMessageFor(model => model.IsAvailable, "", new { @class = "text-danger" })
                 </div>
             </div>
         </div>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Guardar" class="btn btn-default" />
+                <input type="submit" value="Save" class="btn btn-default" />
             </div>
         </div>
     </div>
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Volver al listado", "Index")
 </div>
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}

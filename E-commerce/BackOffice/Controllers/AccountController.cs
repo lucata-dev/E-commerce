@@ -232,6 +232,47 @@ namespace BackOffice.Controllers
             return View(model);
         }
 
+        [AllowAnonymous]
+        public async Task<ActionResult> Delete(string id)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await UserManager.FindByIdAsync(id);
+
+                var result = await UserManager.DeleteAsync(user);
+
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("Index", "User");
+                }
+                AddErrors(result);
+            }
+
+            // Si llegamos a este punto, es que se ha producido un error y volvemos a mostrar el formulario
+            return View();
+        }
+
+        [AllowAnonymous]
+        public async Task<ActionResult> Available(string userId)
+        {
+            var user = await UserManager.FindByIdAsync(userId);
+
+            var isAvailable = user.IsAvailable ? false : true;
+
+            user.IsAvailable = isAvailable;
+
+            var result = await UserManager.UpdateAsync(user);
+
+            if (result.Succeeded)
+            {
+                return RedirectToAction("Index", "Customer");
+            }
+            AddErrors(result);
+
+            // Si llegamos a este punto, es que se ha producido un error y volvemos a mostrar el formulario
+            return View();
+        }
+
         //
         // GET: /Account/ConfirmEmail
         [AllowAnonymous]

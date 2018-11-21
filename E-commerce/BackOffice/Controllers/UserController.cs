@@ -35,7 +35,12 @@ namespace BackOffice.Controllers
         {
             //var user = _service.GetUser(Conventid);s
 
-            return RedirectToAction("Edit", "Account", new { id = id });
+            return RedirectToAction("Edit", "Account", new { @id = id });
+        }
+
+        public ActionResult Delete(string id)
+        {
+            return RedirectToAction("Delete", "Account", new { @id = id });
         }
     }
 }
