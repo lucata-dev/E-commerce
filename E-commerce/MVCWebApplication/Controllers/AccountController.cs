@@ -68,12 +68,16 @@ namespace MVCWebApplication.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Login(FormCollection form, string returnUrl)
+        public async Task<ActionResult> Login(LoginRegisterViewModel viewModel, string returnUrl)
         {
-            
+            if (!ModelState.IsValid)
+            {
+                return View("LoginRegister", viewModel);
+            }
+
             // No cuenta los errores de inicio de sesión para el bloqueo de la cuenta
             // Para permitir que los errores de contraseña desencadenen el bloqueo de la cuenta, cambie a shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsync(form.Get("email"), form.Get("password"), true, shouldLockout: false);
+            var result = await SignInManager.PasswordSignInAsync(viewModel.LoginViewModel.Email, viewModel.LoginViewModel.Password, true, shouldLockout: false);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -82,7 +86,6 @@ namespace MVCWebApplication.Controllers
                     return View("Lockout");
                 case SignInStatus.Failure:
                 default:
-                    ViewBag.Error = "Intento de inicio de sesión no válido.";
                     return View("LoginRegister");
             }
         }
@@ -143,28 +146,35 @@ namespace MVCWebApplication.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(FormCollection form)
+        public async Task<ActionResult> Register(RegisterViewModel registerViewModel)
         {
-            var user = new ApplicationUser { UserName = form.Get("email"), Email = form.Get("email"), CreatedAt = DateTime.Now };
-            var result = await UserManager.CreateAsync(user, form.Get("password"));
-            if (result.Succeeded)
+
+            if (ModelState.IsValid)
             {
-                var role = UserManager.AddToRole(user.Id, "Customer");
-                await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                var user = new ApplicationUser { UserName = registerViewModel.Email, Email = registerViewModel.Email, CreatedAt = DateTime.Now };
+                var result = await UserManager.CreateAsync(user, registerViewModel.Password);
 
-                // Para obtener más información sobre cómo habilitar la confirmación de cuentas y el restablecimiento de contraseña, visite https://go.microsoft.com/fwlink/?LinkID=320771
-                // Enviar correo electrónico con este vínculo
-                // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                // await UserManager.SendEmailAsync(user.Id, "Confirmar cuenta", "Para confirmar la cuenta, haga clic <a href=\"" + callbackUrl + "\">aquí</a>");
+                if (result.Succeeded)
+                {
+                    var role = UserManager.AddToRole(user.Id, "Customer");
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
-                return RedirectToAction("Index", "Home");
+                    // Para obtener más información sobre cómo habilitar la confirmación de cuentas y el restablecimiento de contraseña, visite https://go.microsoft.com/fwlink/?LinkID=320771
+                    // Enviar correo electrónico con este vínculo
+                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                    // await UserManager.SendEmailAsync(user.Id, "Confirmar cuenta", "Para confirmar la cuenta, haga clic <a href=\"" + callbackUrl + "\">aquí</a>");
+
+                    return RedirectToAction("Index", "Home");
+                }
+
+                AddErrors(result);
+
+                // Si llegamos a este punto, es que se ha producido un error y volvemos a mostrar el formulario
+                return View("LoginRegister");
             }
 
-            AddErrors(result);
-
-            // Si llegamos a este punto, es que se ha producido un error y volvemos a mostrar el formulario
-            return View();
+            return View("LoginRegister");
         }
 
         //

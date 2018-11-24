@@ -79,16 +79,6 @@ namespace MVCWebApplication.Models
         [Display(Name = "Confirmar contraseña")]
         [Compare("Password", ErrorMessage = "La contraseña y la contraseña de confirmación no coinciden.")]
         public string ConfirmPassword { get; set; }
-
-        [Required]
-        [StringLength(50)]
-        [Display(Name = "Nombre")]
-        public string Name { get; set; }
-
-        [Required]
-        [StringLength(50)]
-        [Display(Name = "Apellido")]
-        public string LastName { get; set; }
     }
 
     public class ResetPasswordViewModel

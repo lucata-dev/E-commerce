@@ -3,6 +3,8 @@
     ViewBag.Title = "LoginRegister";
 }
 
+@model MVCWebApplication.Models.LoginRegisterViewModel
+
 <section id="form">
     <!--form-->
     <div class="container">
@@ -14,13 +16,12 @@
                     @using (Html.BeginForm("Login", "Account", FormMethod.Post))
                     {
                         @Html.AntiForgeryToken()
-                        <input type="email" name="email" placeholder="Email" />
-                        <input type="password" name="password" placeholder="Password" />
+                        @Html.ValidationSummary("", new { @class = "text-danger" })
+                        @Html.TextBoxFor(m => m.LoginViewModel.Email, new { @placeholder = "Email" })
+                        @Html.ValidationMessageFor(m => m.LoginViewModel.Email)
+                        @Html.PasswordFor(m => m.LoginViewModel.Password, new { @placeholder = "Password" })
+                        @Html.ValidationMessageFor(m => m.LoginViewModel.Password)
                         <button type="submit" class="btn btn-default">Ingresar</button>
-                    }
-                    @if (ViewBag.Error != null)
-                    {
-                        <p>@ViewBag.Error</p>
                     }
 
                 </div><!--/login form-->
@@ -32,16 +33,26 @@
                 <div class="signup-form">
                     <!--sign up form-->
                     <h2>Registrate</h2>
+                    @Html.ValidationSummary("", new { @class = "text-danger" })
                     @using (Html.BeginForm("Register", "Account", FormMethod.Post))
                     {
                         @Html.AntiForgeryToken()
-                        <input type="email" name="email" placeholder="Email Address" />
-                        <input type="password" name="password" placeholder="Password" />
+                        @Html.TextBoxFor(m => m.RegisterViewModel.Email, new { @placeholder = "Email" })
+                        @Html.ValidationMessageFor(m => m.RegisterViewModel.Email)
+                        @Html.PasswordFor(m => m.RegisterViewModel.Password, new { @placeholder = "Password" })
+                        @Html.ValidationMessageFor(m => m.RegisterViewModel.Password)
+                        @Html.PasswordFor(m => m.RegisterViewModel.ConfirmPassword, new { @placeholder = "Password" })
+                        @Html.ValidationMessageFor(m => m.RegisterViewModel.ConfirmPassword)
+
                         <button type="submit" class="btn btn-default">Registrar</button>
                     }
                 </div><!--/sign up form-->
-                
+
             </div>
         </div>
     </div>
 </section><!--/form-->
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
