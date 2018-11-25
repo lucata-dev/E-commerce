@@ -28,9 +28,17 @@ namespace Ecommerce.Data.Migrations
                     new Category{ Id = 5, Name = "Deportes" }
                 });
 
+                context.States.AddOrUpdate(new State[]
+                {
+                    new State{ Name = "Pedido", Id = 1 },
+                    new State{ Name = "Cancelado", Id = 2 },
+                    new State{ Name = "Procesand", Id = 3 },
+                    new State{ Name = "Entregado", Id = 4 }
+                });
+
                 
-                //context.ApplicationRoles.AddOrUpdate(new ApplicationRole { Name = "Admin" });
-                //context.ApplicationRoles.AddOrUpdate(new ApplicationRole { Name = "Customer" });
+                //context.ApplicationRoles.AddOrUpdate(new ApplicationRole { Id = Guid.NewGuid().ToString(),  Name = "Admin" });
+                //context.ApplicationRoles.AddOrUpdate(new ApplicationRole { Id = Guid.NewGuid().ToString(), Name = "Customer" });
             }
             catch(Exception)
             {

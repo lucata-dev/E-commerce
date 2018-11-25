@@ -1436,8 +1436,11 @@ h2.title {
 
 }
 
-.signup-form {
+#logoutForm{
+    margin:10px 0 0 0;
+}
 
+.signup-form {
 }
 
 .login-form h2, .signup-form h2 {
@@ -1896,16 +1899,18 @@ h2.title {
 }
 
 
-.shopper-info > form > input, 
-.form-two > form > select, 
-.form-two > form > input, 
-.form-one > form > input {
-  background:#F0F0E9;
-  border: 0 none;
-  margin-bottom:10px;
-  padding: 10px;
-  width: 100%;
-  font-weight: 300
+.shopper-info > form > input,
+.form-two > form > select,
+.form-two > form > input,
+.form-one > form > input, 
+form > .form-one > input,
+form > .form-two > input {
+    background: #F0F0E9;
+    border: 0 none;
+    margin-bottom: 10px;
+    padding: 10px;
+    width: 100%;
+    font-weight: 300
 }
 
 .form-two > form > select {

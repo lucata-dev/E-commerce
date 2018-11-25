@@ -147,6 +147,41 @@ namespace Ecommerce.MVCWebApplication.Controllers
             }
         }
 
+        [HttpPost]
+        public ActionResult CheckOut()
+        {
+            try
+            {
+                var productsView = GetItemsCart();
+                var products = new List<Product>();
+                var total = 0;
+
+                var order = new Order
+                {
+                    State = _service.GetState(1),
+                    CreatedAt = DateTime.Now,
+                };
+
+                foreach (var item in productsView)
+                {
+                    total += (int)item.Product.UnitPrice * item.Quantity;
+                    products.Add(item.Product);
+                }
+
+                order.TotalPrice = total;
+
+                _service.addOrderProducts(order, products);
+                clearCart();
+
+                TempData["CompraOk"] = "Gracias por confiar en nosotros, nos comunicaremos por su pedido a la brevedad";
+                return RedirectToAction("Index", "Home");
+            }
+            catch
+            {
+                return View("Cart");
+            }
+        }
+
         private List<CartItemViewModel> GetItemsCart()
         {
             if (Request.Cookies["cartItemsCookie"] != null)
@@ -162,6 +197,16 @@ namespace Ecommerce.MVCWebApplication.Controllers
             else
             {
                 return new List<CartItemViewModel>();
+            }
+        }
+
+        private void clearCart()
+        {
+            if (Request.Cookies["cartItemsCookie"] != null)
+            {
+                HttpCookie myCookie = new HttpCookie("cartItemsCookie");
+                myCookie.Expires = DateTime.Now.AddDays(-1d);
+                Response.Cookies.Add(myCookie);
             }
         }
     }

@@ -17,18 +17,6 @@ namespace Ecommerce.Domain.Entities
             return userIdentity;
         }
 
-        [StringLength(50)]
-        [Display(Name = "Nombre")]
-        public string Name { get; set; }
-
-        [StringLength(50)]
-        [Display(Name = "Apellido")]
-        public string LastName { get; set; }
-
-        [StringLength(50)]
-        [Display(Name = "Empresa")]
-        public string CompanyName { get; set; }
-
         [Display(Name = "Fecha de registro")]
         public DateTime CreatedAt { get; set; }
 

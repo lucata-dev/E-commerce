@@ -20,7 +20,7 @@
                 </button>
                 @Html.ActionLink("E-commerce ORT", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
-            @if (User.Identity.IsAuthenticated)
+            @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
             {   
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
@@ -28,6 +28,7 @@
                         <li>@Html.ActionLink("Categorias", "Index", "Category")</li>
                         <li>@Html.ActionLink("Productos", "Index", "Product")</li>
                         <li>@Html.ActionLink("Clientes", "Index", "Customer")</li>
+                        <li>@Html.ActionLink("Ventas", "Index", "Order")</li>
                     </ul>
                    @Html.Partial("_LoginPartial")
                 </div>

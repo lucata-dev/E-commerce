@@ -25,7 +25,7 @@ namespace Repository
                 _dbContext.Set<T>().Add(entity);
                 _dbContext.SaveChanges();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
                 throw;
@@ -76,7 +76,7 @@ namespace Repository
 
                 _dbContext.SaveChanges();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
                 throw;

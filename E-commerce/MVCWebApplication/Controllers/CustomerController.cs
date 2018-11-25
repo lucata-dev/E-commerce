@@ -1,4 +1,10 @@
-﻿using System;
+﻿using Ecommerce.Business;
+using Ecommerce.Business.Auth;
+using Ecommerce.Domain.Entities;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using MVCWebApplication.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -6,12 +12,45 @@ using System.Web.Mvc;
 
 namespace Ecommerce.MVCWebApplication.Controllers
 {
+    [Authorize(Roles = "Customer")]
     public class CustomerController : Controller
     {
+        private Service _service;
+        private ApplicationUserManager _userManager;
+
+        public CustomerController()
+        {
+            _service = new Service();
+        }
+        public CustomerController(ApplicationUserManager userManager)
+        {
+            _service = new Service();
+            UserManager = userManager;
+        }
+
+        public ApplicationUserManager UserManager
+        {
+            get
+            {
+                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+            private set
+            {
+                _userManager = value;
+            }
+        }
+
         // GET: Customer
         public ActionResult Index()
         {
-            return View();
+            var userId = User.Identity.GetUserId();
+            var customer = new CustomerViewModel
+            {
+                Customer = _service.GetCustomer(userId),
+                ResetPassword = new ResetPasswordViewModel { Email = UserManager.FindById(userId).Email }
+            };
+
+            return View(customer);
         }
 
         // GET: Customer/Details/5
@@ -50,11 +89,31 @@ namespace Ecommerce.MVCWebApplication.Controllers
 
         // POST: Customer/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(Customer customer)
         {
             try
             {
-                // TODO: Add update logic here
+                var userId = User.Identity.GetUserId();
+                var customerModel = _service.GetCustomer(userId);
+
+                if (customerModel != null)
+                {
+                    customerModel.Address = customer.Address;
+                    customerModel.City = customer.City;
+                    customerModel.LastName = customer.LastName;
+                    customerModel.Name = customer.Name;
+                    customerModel.Phone = customer.Phone;
+                    customerModel.Province = customer.Province;
+                    customerModel.ZipCode = customer.ZipCode;
+                }
+                else
+                {
+                    customerModel = customer;
+                    customerModel.ApplicationUserId = userId;
+                }
+                
+
+                _service.AddOrUpdateCustomer(customerModel);
 
                 return RedirectToAction("Index");
             }

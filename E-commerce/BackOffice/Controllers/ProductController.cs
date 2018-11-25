@@ -42,11 +42,9 @@ namespace Ecommerce.BackOffice.Controllers
             {
                 product.Category = _service.GetCategoryById(category);
 
-                _service.AddProduct(product);
-
                 var repositoryPath = Server.MapPath("~/Images");
 
-                var directoryPath = product.Id.ToString();
+                var directoryPath = Guid.NewGuid().ToString();
 
                 var fullDirectory = Path.Combine(repositoryPath, directoryPath);
 
@@ -61,9 +59,10 @@ namespace Ecommerce.BackOffice.Controllers
 
                     postedFile.SaveAs(Path.Combine(fullDirectory, fileName));
 
-                    var image = new Image { Path = Path.Combine(directoryPath, fileName), ProductId = product.Id };
+                    var image = new Image { Path = Path.Combine(directoryPath, fileName)};
 
-                    _service.AddImage(image);
+                    product.Images.Add(image);
+                    _service.AddProduct(product);
                 }
 
                 return RedirectToAction("Index");

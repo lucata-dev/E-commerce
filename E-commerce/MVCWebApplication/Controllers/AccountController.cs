@@ -251,18 +251,21 @@ namespace MVCWebApplication.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View(model);
+                return RedirectToAction("Index", "Customer", model);
             }
-            var user = await UserManager.FindByNameAsync(model.Email);
+            var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
             if (user == null)
             {
-                // No revelar que el usuario no existe
-                return RedirectToAction("ResetPasswordConfirmation", "Account");
+                return RedirectToAction("Index");
             }
-            var result = await UserManager.ResetPasswordAsync(user.Id, model.Code, model.Password);
+            UserManager.RemovePassword(user.Id);
+
+            var result = await UserManager.AddPasswordAsync(user.Id, model.Password);
+
             if (result.Succeeded)
             {
-                return RedirectToAction("ResetPasswordConfirmation", "Account");
+                TempData["msg"] = "Contraseña modificada correctamente";
+                return RedirectToAction("Index", "Customer");
             }
             AddErrors(result);
             return View();
@@ -396,6 +399,13 @@ namespace MVCWebApplication.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
+            if (Request.Cookies["cartItemsCookie"] != null)
+            {
+                HttpCookie myCookie = new HttpCookie("cartItemsCookie");
+                myCookie.Expires = DateTime.Now.AddDays(-1d);
+                Response.Cookies.Add(myCookie);
+            }
+
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
             return RedirectToAction("Index", "Home");
         }

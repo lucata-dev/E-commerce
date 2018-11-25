@@ -204,6 +204,7 @@
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\CartItemViewModel.cs" />
+    <Compile Include="Models\CustomerViewModel.cs" />
     <Compile Include="Models\LoginRegisterViewModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -346,9 +347,11 @@
     <Content Include="Views\Product\Index.cshtml" />
     <Content Include="Views\Product\Details.cshtml" />
     <Content Include="Views\Shared\_Products.cshtml" />
-    <Content Include="Views\Product\Cart.cshtml" />
+    <Content Include="Views\Product\x.cshtml" />
     <Content Include="Views\Account\LoginRegister.cshtml" />
     <Content Include="Views\Customer\Index.cshtml" />
+    <Content Include="Views\Customer\ApplicationUser.cshtml" />
+    <Content Include="Views\Product\Cart.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

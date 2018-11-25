@@ -60,56 +60,23 @@
                                 </td>
                             </tr>
                         }
-                        <tr>
-                            <td colspan="4">&nbsp;</td>
-                            <td colspan="2">
-                                <table class="table table-condensed total-result">
-                                    <tr class="shipping-cost">
-                                        <td>Costo de envio</td>
-                                        <td>Gratis</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Total</td>
-                                        <td><span id="total"></span></td>
-                                    </tr>
-                                </table>
-                            </td>
-                        </tr>
                     }
-                </tbody>
-                @if (Model != null)
-                {
-                    <tfoot>
-                        <tr>
-                            <td colspan="4">&nbsp;</td>
-                            <td colspan="2">
-                                <a class="btn btn-default btn-block" href="@Url.Action("Index", "Home")">Seguir comprando</a>
-                                @using (Html.BeginForm("CheckOut", "Product", FormMethod.Post))
-                                {
-                                    <button type="submit" class="btn btn-primary btn-block">Finalizar</button>
-                                }
-                            </td>
-                        </tr>
-                    </tfoot>
-                }
-            </table>
+                    </tbody>
+                </table>
         </div>
     </div>
 </section> <!--/#cart_items-->
 
-@section Scripts
-{
-    <script>
-        $(document).ready(function () {
-            var total = 0;
-
-            var items = $(".cart_total_price");
-
-            items.each(function () {
-                total += parseInt($(this).text().substring(1));
-            })
-            
-            $("#total").html("$" + total);
-        });
-    </script>
-}
+<section id="do_action">
+    <div class="container">
+        <div class="heading">
+            <h3>Que te gustaria hacer?</h3>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <a class="btn btn-default update" href="@Url.Action("Index", "Home")">Seguir comprando</a>
+                <a class="btn btn-default check_out" href="@Url.Action("CheckOut", "Product")">Finalizar compra</a>
+            </div>
+        </div>
+    </div>
+</section><!--/#do_action-->

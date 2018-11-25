@@ -66,11 +66,14 @@
                     <div class="col-sm-8">
                         <div class="shop-menu pull-right">
                             <ul class="nav navbar-nav">
-                                <li><a href="@Url.Action("Index", "Customer")"><i class="fa fa-user"></i> Mi cuenta</a></li>
+                                @if (Request.IsAuthenticated && User.IsInRole("Customer"))
+                                {
+                                    <li><a href="@Url.Action("Index", "Customer")"><i class="fa fa-user"></i> Mi cuenta</a></li>
+                                }
                                 <li><a href="@Url.Action("Cart", "Product")"><i class="fa fa-crosshairs"></i> Checkout</a></li>
                                 <li><a href="@Url.Action("Cart", "Product")"><i class="fa fa-shopping-cart"></i> Carrito</a></li>
                                 <li>
-                                    @if (Request.IsAuthenticated)
+                                    @if (Request.IsAuthenticated && User.IsInRole("Customer"))
                                     {
                                         using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
                                         {
@@ -294,5 +297,6 @@
 
     </footer><!--/Footer-->
     <script src="@Url.Content("~/Scripts/jquery-3.3.1.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/bootstrap.min.js")"></script>
     @RenderSection("Scripts", required: false)
 </body>

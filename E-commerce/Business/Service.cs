@@ -132,5 +132,44 @@ namespace Ecommerce.Business
         }
 
         #endregion
+
+        #region Customers
+
+        public void AddOrUpdateCustomer(Customer customer)
+        {
+            if (customer.Id == 0)
+            {
+                _repository.Add<Customer>(customer);
+            }
+            else
+            {
+                _repository.Update<Customer>(customer);
+            }
+        }
+
+        public Customer GetCustomer(string applicationUserId)
+        {
+            return _repository.FindBy<Customer>(c => c.ApplicationUserId == applicationUserId).FirstOrDefault();
+        }
+
+        #endregion
+
+        #region State
+
+        public State GetState(int id)
+        {
+            return _repository.Get<State>(id);
+        }
+
+        #endregion
+
+        public void addOrderProducts(Order order, List<Product> products)
+        {
+            foreach (var item in products)
+            {
+                order.Products.Add(_repository.Get<Product>(item.Id));
+            }
+            _repository.Add<Order>(order);
+        }
     }
 }

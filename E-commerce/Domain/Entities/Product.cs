@@ -30,6 +30,8 @@ namespace Ecommerce.Domain.Entities
         [Display(Name = "Precio")]
         public decimal UnitPrice { get; set; }
 
+        public int CategoryId { get; set; }
+
         [Required]
         [JsonIgnore]
         [DataType(DataType.MultilineText)]
@@ -49,5 +51,10 @@ namespace Ecommerce.Domain.Entities
         public virtual ICollection<Order> Orders { get; set; }
 
         private ICollection<Image> _images;
+
+        public Product()
+        {
+            this.Orders = new HashSet<Order>();
+        }
     }
 }
