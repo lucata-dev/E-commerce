@@ -161,6 +161,11 @@ namespace Ecommerce.Business
             return _repository.Get<State>(id);
         }
 
+        public IEnumerable<State> GetStates()
+        {
+            return _repository.GetAll<State>();
+        }
+
         #endregion
 
         public void addOrderProducts(Order order, List<Product> products)
@@ -170,6 +175,16 @@ namespace Ecommerce.Business
                 order.Products.Add(_repository.Get<Product>(item.Id));
             }
             _repository.Add<Order>(order);
+        }
+
+        public IEnumerable<Order> GetOrders()
+        {
+            return _repository.GetAll<Order>();
+        }
+
+        public Order GetOrder(int id)
+        {
+            return _repository.Get<Order>(id);
         }
     }
 }

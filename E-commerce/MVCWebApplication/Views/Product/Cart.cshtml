@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<Ecommerce.MVCWebApplication.Models.CartItemViewModel>
 @{
-    ViewBag.Title = "Cart";
+    ViewBag.Title = "Carrito";
     var repo = ConfigurationManager.AppSettings["RepositoryPath"];
 }
 @using System.Configuration;
@@ -56,7 +56,7 @@
                                     <p class="cart_total_price">$@item.Total</p>
                                 </td>
                                 <td class="cart_delete">
-                                    <a class="cart_quantity_delete" href=""><i class="fa fa-times"></i></a>
+                                    <a class="cart_quantity_delete" href="@Url.Action("Delete", "Product", new { @id = item.Product.Id })"><i class="fa fa-times"></i></a>
                                 </td>
                             </tr>
                         }

@@ -14,7 +14,9 @@
                 <div class="product-image-wrapper">
                     <div class="single-products">
                         <div class="productinfo text-center">
-                            <img src="@Url.Content(repo + item.Images.FirstOrDefault().Path)" alt="" />
+                            <a href="@Url.Action("Details", "Product", new { @id = item.Id })">
+                                <img src="@Url.Content(repo + item.Images.FirstOrDefault().Path)" alt="" />
+                            </a>
                             <h2>$@item.UnitPrice</h2>
                             <p>@item.Name</p>
                             <a href="@Url.Action("Details", "Product", new { @id = item.Id })" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Detalle</a>

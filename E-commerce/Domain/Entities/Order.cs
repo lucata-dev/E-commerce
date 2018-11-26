@@ -15,15 +15,19 @@ namespace Ecommerce.Domain.Entities
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
+        [Display(Name = "Estado")]
         public int StateId { get; set; }
         public virtual State State { get; set; }
 
+        [Display(Name = "Comentario")]
         public string Comment { get; set; }
 
         [Required]
+        [Display(Name = "Precio")]
         public decimal TotalPrice { get; set; }
 
         [Required]
+        [Display(Name = "Fecha de venta")]
         public DateTime CreatedAt { get; set; }
 
         public virtual ICollection<Product> Products { get; set; }

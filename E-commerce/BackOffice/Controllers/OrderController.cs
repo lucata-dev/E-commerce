@@ -6,41 +6,29 @@ using System.Web.Mvc;
 
 namespace Ecommerce.BackOffice.Controllers
 {
-    public class OrderController : Controller
+    public class OrderController : GeneralController
     {
         // GET: Order
         public ActionResult Index()
         {
+            var orders = _service.GetOrders();
 
-            return View();
+            return View(orders);
         }
 
         // GET: Order/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            ViewBag.States = _service.GetStates();
+
+            var order = _service.GetOrder(id);
+            return View(order);
         }
 
         // GET: Order/Create
         public ActionResult Create()
         {
             return View();
-        }
-
-        // POST: Order/Create
-        [HttpPost]
-        public ActionResult Create(FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
         }
 
         // GET: Order/Edit/5

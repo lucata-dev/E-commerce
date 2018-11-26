@@ -18,6 +18,6 @@ namespace Ecommerce.Domain.Entities
         [StringLength(50)]
         public string Name { get; set; }
 
-        public ICollection<Order> Orders { get; set; }
+        public virtual ICollection<Order> Orders { get; set; }
     }
 }

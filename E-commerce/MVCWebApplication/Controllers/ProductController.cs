@@ -39,22 +39,6 @@ namespace Ecommerce.MVCWebApplication.Controllers
             return View();
         }
 
-        // POST: Product/Create
-        [HttpPost]
-        public ActionResult Create(FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
         // GET: Product/Edit/5
         public ActionResult Edit(int id)
         {
@@ -80,23 +64,24 @@ namespace Ecommerce.MVCWebApplication.Controllers
         // GET: Product/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
-        }
+            var productsCart = GetItemsCart();
 
-        // POST: Product/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
+            var product = productsCart.FirstOrDefault(p => p.Product.Id == id);
 
-                return RedirectToAction("Index");
-            }
-            catch
+            productsCart.Remove(product);
+
+            var jsonCartItems = JsonConvert.SerializeObject(productsCart, Formatting.None,
+                                new JsonSerializerSettings
+                                {
+                                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                                });
+
+            if (Session["cartItemsSession"] != null)
             {
-                return View();
+                Session["cartItemsSession"] = jsonCartItems;
             }
+
+            return RedirectToAction("Cart");
         }
 
         [HttpPost]
@@ -115,15 +100,15 @@ namespace Ecommerce.MVCWebApplication.Controllers
                     Total = quantity * Convert.ToInt32(product.UnitPrice)
                 });
 
+
                 var jsonCartItems = JsonConvert.SerializeObject(cartItems, Formatting.None,
                     new JsonSerializerSettings
                     {
                         ReferenceLoopHandling = ReferenceLoopHandling.Ignore
                     });
 
-                HttpCookie cartItemCookie = new HttpCookie("cartItemsCookie", jsonCartItems);
-
-                Response.Cookies.Add(cartItemCookie);
+                Session.Timeout = 10;
+                Session["cartItemsSession"] = jsonCartItems;
 
                 return RedirectToAction("Cart");
             }
@@ -147,34 +132,43 @@ namespace Ecommerce.MVCWebApplication.Controllers
             }
         }
 
+
         [HttpPost]
         public ActionResult CheckOut()
         {
             try
             {
-                var productsView = GetItemsCart();
-                var products = new List<Product>();
-                var total = 0;
-
-                var order = new Order
+                if (User.Identity.IsAuthenticated && User.IsInRole("Customer"))
                 {
-                    State = _service.GetState(1),
-                    CreatedAt = DateTime.Now,
-                };
 
-                foreach (var item in productsView)
-                {
-                    total += (int)item.Product.UnitPrice * item.Quantity;
-                    products.Add(item.Product);
+                    var productsView = GetItemsCart();
+                    var products = new List<Product>();
+                    var total = 0;
+
+                    var order = new Order
+                    {
+                        State = _service.GetState(1),
+                        CreatedAt = DateTime.Now,
+                    };
+
+                    foreach (var item in productsView)
+                    {
+                        total += (int)item.Product.UnitPrice * item.Quantity;
+                        products.Add(item.Product);
+                    }
+
+                    order.TotalPrice = total;
+
+                    _service.addOrderProducts(order, products);
+                    ClearCart();
+
+                    TempData["CompraOk"] = "Gracias por confiar en nosotros, nos comunicaremos por su pedido a la brevedad";
+                    return RedirectToAction("Index", "Home");
                 }
-
-                order.TotalPrice = total;
-
-                _service.addOrderProducts(order, products);
-                clearCart();
-
-                TempData["CompraOk"] = "Gracias por confiar en nosotros, nos comunicaremos por su pedido a la brevedad";
-                return RedirectToAction("Index", "Home");
+                else
+                {
+                    return RedirectToAction("Login", "Account");
+                }
             }
             catch
             {
@@ -184,11 +178,9 @@ namespace Ecommerce.MVCWebApplication.Controllers
 
         private List<CartItemViewModel> GetItemsCart()
         {
-            if (Request.Cookies["cartItemsCookie"] != null)
+            if (Session["cartItemsSession"] != null)
             {
-                var itemsCart = new List<CartItemViewModel>();
-
-                var json = Request.Cookies["cartItemsCookie"].Value;
+                var json = Session["cartItemsSession"] as string;
 
                 var products = JsonConvert.DeserializeObject<List<CartItemViewModel>>(json);
 
@@ -200,13 +192,11 @@ namespace Ecommerce.MVCWebApplication.Controllers
             }
         }
 
-        private void clearCart()
+        private void ClearCart()
         {
-            if (Request.Cookies["cartItemsCookie"] != null)
+            if (Session["cartItemsSession"] != null)
             {
-                HttpCookie myCookie = new HttpCookie("cartItemsCookie");
-                myCookie.Expires = DateTime.Now.AddDays(-1d);
-                Response.Cookies.Add(myCookie);
+                Session["cartItemsSession"] = null;
             }
         }
     }
