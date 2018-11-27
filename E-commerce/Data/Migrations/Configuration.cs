@@ -32,7 +32,7 @@ namespace Ecommerce.Data.Migrations
                 {
                     new State{ Name = "Pedido", Id = 1 },
                     new State{ Name = "Cancelado", Id = 2 },
-                    new State{ Name = "Procesand", Id = 3 },
+                    new State{ Name = "Procesando", Id = 3 },
                     new State{ Name = "Entregado", Id = 4 }
                 });
 

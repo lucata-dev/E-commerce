@@ -60,11 +60,18 @@ namespace Ecommerce.Business
             return users;
         }
 
-        public IEnumerable<ApplicationUser> GetCustomerUsers()
+        public IEnumerable<Customer> GetCustomerUsers()
         {
             var customerRole = _repository.GetAll<ApplicationRole>().FirstOrDefault(x => x.Name == "Customer");
             var users = _repository.FindBy<ApplicationUser>(x => x.Roles.Any(r => r.RoleId == customerRole.Id));
-            return users;
+
+            var usersId = users.Select(x => x.Id).ToList();
+
+            var customers = _repository
+                            .FindBy<Customer>(c => usersId.Contains(c.ApplicationUserId))
+                            .ToList();
+
+            return customers;
         }
 
         public void UpdateUser(ApplicationUser user)

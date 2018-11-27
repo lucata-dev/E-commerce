@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Ecommerce.Domain.Entities.ApplicationUser>
+﻿@model IEnumerable<Ecommerce.Domain.Entities.Customer>
 
 @{
     ViewBag.Title = "Index";
@@ -12,22 +12,25 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Email)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PhoneNumber)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.Name)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.LastName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.CreatedAt)
+            @Html.DisplayNameFor(model => model.Phone)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.IsAvailable)
+            @Html.DisplayNameFor(model => model.Address)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ZipCode)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Province)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.City)
         </th>
         <th></th>
     </tr>
@@ -35,24 +38,27 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Email)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PhoneNumber)
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.Name)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.LastName)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.CreatedAt)
+            @Html.DisplayFor(modelItem => item.Phone)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.IsAvailable)
+            @Html.DisplayFor(modelItem => item.Address)
         </td>
         <td>
+            @Html.DisplayFor(modelItem => item.ZipCode)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Province)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.City)
+        </td>
+        @*<td>
             @if (item.IsAvailable)
             {
                 @Html.ActionLink("Deshabilitar", "Available", new { id = item.Id })
@@ -61,7 +67,7 @@
             {
                 @Html.ActionLink("Habilitar", "Available", new { id = item.Id })
             }
-        </td>
+        </td>*@
     </tr>
 }
 

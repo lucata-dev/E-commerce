@@ -17,7 +17,6 @@
             <th>Categoría</th>
             <th>Descripción</th>
             <th>Precio</th>
-            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -28,20 +27,26 @@
             <td>@item.Category.Name</td>
             <td>@item.Description</td>
             <td>@item.UnitPrice</td>
-            <td>
-                @Html.DropDownList("States", selectList, new { @class = "form-control" })
-            </td>
         </tr>
         }
     </tbody>
     <tfoot>
         <tr>
-            <td colspan="4" class="text-right">
+            <td colspan="3" class="text-right">
                 <strong>Total</strong>
             </td>
             <td>
+                
                 @Model.TotalPrice
             </td>
         </tr>
     </tfoot>
 </table>
+
+<h4>Estado de la orden</h4>
+<div class="form-inline">
+    <div class="form-group">
+        @Html.DropDownList("States", selectList, new { @class = "form-control"})
+    </div>
+    <button class="btn btn-primary" disabled>Cambiar </button>
+</div>
